@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -28,9 +29,9 @@ public class Coupon {
     private CouponStatus status;
 
     @Column(name = "used_date")
-    private Timestamp used_date;
+    private Date usedDate;
 
     @NotNull
     @Column(name = "expired_date")
-    private Timestamp expired_date;
+    private Timestamp expiredDate;
 }

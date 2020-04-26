@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -25,7 +28,7 @@ public class CouponService {
     @Transactional
     public Coupon postNewCoupon() {
         Coupon coupon = Coupon.builder().status(CouponStatus.STANDBY)
-                .expired_date(new Timestamp(new Date().getTime())).build();
+                .expiredDate(Timestamp.valueOf(LocalDateTime.now())).build();
         couponRepository.save(coupon);
         return coupon;
     }
@@ -51,9 +54,9 @@ public class CouponService {
     public String useCoupon(String code) {
         return couponRepository.findById(code)
                 .map(coupon -> {
-                    Timestamp now = new Timestamp(new Date().getTime());
+                    Timestamp now = Timestamp.valueOf(LocalDateTime.now());
                     couponRepository.save(
-                            coupon.toBuilder().status(CouponStatus.USED).used_date(now).build()
+                            coupon.toBuilder().status(CouponStatus.USED).usedDate(now).build()
                     );
                     return coupon.getCode();
                 }).orElse(null);
@@ -64,9 +67,18 @@ public class CouponService {
         return couponRepository.findById(code)
                 .map(coupon -> {
                     couponRepository.save(
-                            coupon.toBuilder().status(CouponStatus.PUBLISHED).used_date(null).build()
+                            coupon.toBuilder().status(CouponStatus.PUBLISHED).usedDate(null).build()
                     );
                     return coupon.getCode();
                 }).orElse(null);
+    }
+
+    public List<String> getTodayExpiredCoupons() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDateTime startOfDay = LocalDateTime.of(currentDate, LocalTime.MIDNIGHT);
+        LocalDateTime endOfDay = LocalDateTime.of(currentDate, LocalTime.MAX);
+        return couponRepository.findCouponsByExpiredDateBetween(Timestamp.valueOf(startOfDay), Timestamp.valueOf(endOfDay))
+                .map(coupons -> coupons.stream().map(coupon -> coupon.getCode()).collect(Collectors.toList()))
+                .orElse(null);
     }
 }

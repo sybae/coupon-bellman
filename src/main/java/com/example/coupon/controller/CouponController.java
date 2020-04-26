@@ -91,4 +91,13 @@ public class CouponController {
                 ? ResponseEntity.ok(canceledCode)
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
+    /**
+     * Get Coupons will be expired TODAY
+     * @return Codes
+     */
+    @GetMapping("/expired")
+    public ResponseEntity<List<String>> getTodayExpiredCoupons() {
+        return ResponseEntity.ok(couponService.getTodayExpiredCoupons());
+    }
 }
