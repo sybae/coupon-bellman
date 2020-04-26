@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class Coupon {
 
     @Id
-    @GenericGenerator(name = "code", strategy = "com.example.coupon.service.CodeGenerator")
+    @GenericGenerator(name = "code", strategy = "com.example.coupon.util.CodeGenerator")
     @GeneratedValue(generator = "code")
     @Column(name = "code", length = 13)
     private String code;

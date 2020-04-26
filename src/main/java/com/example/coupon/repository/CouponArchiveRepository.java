@@ -1,10 +1,10 @@
 package com.example.coupon.repository;
 
-import com.example.coupon.model.Coupon;
+import com.example.coupon.model.CouponArchive;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CouponRepository extends JpaRepository<Coupon, String> {
+public interface CouponArchiveRepository extends JpaRepository<CouponArchive, String> {
 
 }
