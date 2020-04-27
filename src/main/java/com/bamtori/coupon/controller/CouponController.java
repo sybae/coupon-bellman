@@ -20,7 +20,7 @@ public class CouponController {
     private final CouponService couponService;
 
     /**
-     * Post New One Coupon
+     * [POST] Post New One Coupon
      * @return Code
      */
     @PostMapping()
@@ -31,7 +31,7 @@ public class CouponController {
     }
 
     /**
-     * Post New Several Coupons
+     * [POST] Post New Several Coupons
      * @param size
      * @return Count of posted coupons
      */
@@ -46,7 +46,7 @@ public class CouponController {
     }
 
     /**
-     * Publish One Standby Coupon
+     * [PUT] Publish One Standby Coupon
      * @return Code
      */
     @PutMapping()
@@ -58,7 +58,7 @@ public class CouponController {
     }
 
     /**
-     * Get Published Coupons
+     * [GET] Get Published Coupons
      * @return Codes
      */
     @GetMapping("/published")
@@ -67,7 +67,7 @@ public class CouponController {
     }
 
     /**
-     * Use the Coupon
+     * [PUT] Use the Coupon
      * @param code
      * @return Used Code
      */
@@ -80,7 +80,7 @@ public class CouponController {
     }
 
     /**
-     * Cancel the Coupon
+     * [PUT] Cancel the Coupon
      * @param code
      * @return Canceled Code
      */
@@ -93,7 +93,7 @@ public class CouponController {
     }
 
     /**
-     * Get Coupons will be expired TODAY
+     * [GET] Get Coupons will be expired TODAY
      * @return Codes
      */
     @GetMapping("/expired")

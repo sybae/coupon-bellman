@@ -23,7 +23,7 @@ public class CouponService {
     @Transactional
     public Coupon postNewCoupon() {
         Coupon coupon = Coupon.builder().status(CouponStatus.STANDBY)
-                .expiredDate(Timestamp.valueOf(LocalDateTime.now())).build();
+                .expiredDate(Timestamp.valueOf(LocalDateTime.now().plusDays(getRandomDayWithin10Days()))).build();
         couponRepository.save(coupon);
         return coupon;
     }
@@ -75,5 +75,10 @@ public class CouponService {
         return couponRepository.findCouponsByExpiredDateBetween(Timestamp.valueOf(startOfDay), Timestamp.valueOf(endOfDay))
                 .map(coupons -> coupons.stream().map(coupon -> coupon.getCode()).collect(Collectors.toList()))
                 .orElse(null);
+    }
+
+    private int getRandomDayWithin10Days() {
+        Random rand = new Random(System.currentTimeMillis());
+        return rand.nextInt(10);
     }
 }

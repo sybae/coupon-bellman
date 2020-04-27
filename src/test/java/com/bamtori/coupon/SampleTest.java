@@ -14,6 +14,5 @@ public class SampleTest {
     @Test
     public void sayhello() {
         System.out.println("Say Hello!");
-        Date date = new Date();
     }
 }

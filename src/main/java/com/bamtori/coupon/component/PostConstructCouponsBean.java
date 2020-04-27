@@ -20,7 +20,7 @@ public class PostConstructCouponsBean {
 
     private void postSomeCoupons() {
         int posted = 0;
-        while (posted < 20) {
+        while (posted < 50) {
             couponService.postNewCoupon();
             posted++;
         }
@@ -28,7 +28,7 @@ public class PostConstructCouponsBean {
 
     private void publishSomeCoupons() {
         int published = 0;
-        while (published < 5) {
+        while (published < 10) {
             couponService.publishCoupon();
             published++;
         }
