@@ -70,15 +70,34 @@ public class CouponService {
 
     public List<String> getTodayExpiredCoupons() {
         LocalDate currentDate = LocalDate.now();
-        LocalDateTime startOfDay = LocalDateTime.of(currentDate, LocalTime.MIDNIGHT);
-        LocalDateTime endOfDay = LocalDateTime.of(currentDate, LocalTime.MAX);
-        return couponRepository.findCouponsByExpiredDateBetween(Timestamp.valueOf(startOfDay), Timestamp.valueOf(endOfDay))
+        return couponRepository.findCouponsByExpiredDateBetween(getStartOfDay(currentDate), getEndOfDay(currentDate))
                 .map(coupons -> coupons.stream().map(coupon -> coupon.getCode()).collect(Collectors.toList()))
                 .orElse(null);
+    }
+
+    public void postMessages() {
+        LocalDate after3days = LocalDate.now().plusDays(3l);
+        couponRepository.findCouponsByExpiredDateBetween(getStartOfDay(after3days), getEndOfDay(after3days))
+                .ifPresent(coupons -> coupons.forEach(coupon -> printMessage(coupon)));
+    }
+
+    private void printMessage(Coupon coupon) {
+        System.out.println(
+                "The coupon expires in 3 days."
+                .concat(System.lineSeparator())
+                .concat(coupon.getCode()));
     }
 
     private int getRandomDayWithin10Days() {
         Random rand = new Random(System.currentTimeMillis());
         return rand.nextInt(10);
+    }
+
+    private Timestamp getStartOfDay(LocalDate date) {
+        return Timestamp.valueOf(LocalDateTime.of(date, LocalTime.MIDNIGHT));
+    }
+
+    private Timestamp getEndOfDay(LocalDate date) {
+        return Timestamp.valueOf(LocalDateTime.of(date, LocalTime.MAX));
     }
 }

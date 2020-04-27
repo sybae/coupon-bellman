@@ -100,4 +100,14 @@ public class CouponController {
     public ResponseEntity<List<String>> getTodayExpiredCoupons() {
         return ResponseEntity.ok(couponService.getTodayExpiredCoupons());
     }
+
+    /**
+     * [POST] Post Messages for be expired coupons after 3 days
+     * @return Message
+     */
+    @PostMapping("/expired/message")
+    public ResponseEntity<?> postMessagesForBeExpiredAfter3Days() {
+        couponService.postMessages();
+        return ResponseEntity.ok().build();
+    }
 }
