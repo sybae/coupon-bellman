@@ -1,6 +1,6 @@
-package com.example.coupon.model;
+package com.bamtori.coupon.model;
 
-import com.example.coupon.code.CouponStatus;
+import com.bamtori.coupon.code.CouponStatus;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +19,7 @@ import java.util.Date;
 public class Coupon {
 
     @Id
-    @GenericGenerator(name = "code", strategy = "com.example.coupon.util.CodeGenerator")
+    @GenericGenerator(name = "code", strategy = "com.bamtori.coupon.util.CodeGenerator")
     @GeneratedValue(generator = "code")
     @Column(name = "code", length = 13)
     private String code;

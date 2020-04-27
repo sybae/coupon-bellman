@@ -1,4 +1,4 @@
-package com.example.coupon.code;
+package com.bamtori.coupon.code;
 
 public enum CouponStatus {
 

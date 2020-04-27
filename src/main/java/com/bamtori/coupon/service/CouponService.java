@@ -1,22 +1,17 @@
-package com.example.coupon.service;
+package com.bamtori.coupon.service;
 
-import com.example.coupon.code.CouponStatus;
-import com.example.coupon.model.Coupon;
-import com.example.coupon.model.CouponArchive;
-import com.example.coupon.repository.CouponRepository;
+import com.bamtori.coupon.model.Coupon;
+import com.bamtori.coupon.repository.CouponRepository;
+import com.bamtori.coupon.code.CouponStatus;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service

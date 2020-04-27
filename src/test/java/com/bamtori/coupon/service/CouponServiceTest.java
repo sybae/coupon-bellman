@@ -1,7 +1,7 @@
-package com.example.coupon.service;
+package com.bamtori.coupon.service;
 
-import com.example.coupon.model.Coupon;
-import com.example.coupon.repository.CouponRepository;
+import com.bamtori.coupon.repository.CouponRepository;
+import com.bamtori.coupon.model.Coupon;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

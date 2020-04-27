@@ -1,4 +1,4 @@
-package com.example.coupon.util;
+package com.bamtori.coupon.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

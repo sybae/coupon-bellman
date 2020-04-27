@@ -1,7 +1,7 @@
-package com.example.coupon.controller;
+package com.bamtori.coupon.controller;
 
-import com.example.coupon.model.Coupon;
-import com.example.coupon.service.CouponService;
+import com.bamtori.coupon.model.Coupon;
+import com.bamtori.coupon.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.example.coupon.model;
+package com.bamtori.coupon.model;
 
-import com.example.coupon.code.CouponStatus;
+import com.bamtori.coupon.code.CouponStatus;
 import lombok.*;
 
 import javax.persistence.*;

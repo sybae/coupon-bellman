@@ -1,6 +1,6 @@
-package com.example.coupon.repository;
+package com.bamtori.coupon.repository;
 
-import com.example.coupon.model.CouponArchive;
+import com.bamtori.coupon.model.CouponArchive;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

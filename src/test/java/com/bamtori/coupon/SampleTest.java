@@ -1,4 +1,4 @@
-package com.example.coupon;
+package com.bamtori.coupon;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
