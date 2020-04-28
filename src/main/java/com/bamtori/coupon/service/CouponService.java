@@ -39,7 +39,6 @@ public class CouponService {
     }
 
     public List<String> getPublishedCoupons() {
-        //PageRequest pr = new PageRequest(0, 10, Sort.by(Sort.Order.desc("code")));
         return couponRepository.findAllByStatus(CouponStatus.PUBLISHED)
                 .map(coupons -> coupons.stream().map(coupon -> coupon.getCode()).collect(Collectors.toList()))
                 .orElseGet(null);
