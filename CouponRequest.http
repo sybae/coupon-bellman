@@ -1,0 +1,23 @@
+### POST /coupon HTTP/1.1
+POST http://localhost:8080/coupon
+
+### POST /coupon/{size} HTTP/1.1
+POST http://localhost:8080/coupon/10
+
+### PUT /coupon HTTP/1.1
+PUT http://localhost:8080/coupon
+
+### GET /coupon/published HTTP/1.1
+GET http://localhost:8080/coupon/published
+
+### PUT /coupon/{code}/use HTTP/1.1
+PUT http://localhost:8080/coupon/3659-8881-665/use
+
+### PUT /coupon/{code}/cancel HTTP/1.1
+PUT http://localhost:8080/coupon/3659-8881-665/cancel
+
+### GET /coupon/expired HTTP/1.1
+GET http://localhost:8080/coupon/expired
+
+### POST /expired/message HTTP/1.1
+POST http://localhost:8080/coupon/expired/message
