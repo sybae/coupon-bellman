@@ -1,11 +1,20 @@
 # Coupon Bellman
-쿠폰을 발행하여 관리하는 벨맨 친구를 소개합니다.
+> Do you want some coupons?
 
-## Environments
+쿠폰을 발행하여 사용할 수 있는 서비스입니다.
+
+## Environments etc
 Spring Boot, JPA, H2, Lombok, Batch, Java 8
 
  - 서비스 구동시 Post Construct 통해서 임의의 쿠폰들을 생성/발행 합니다.
  - 이후 제공되는 API 통해서 처리할 수 있습니다.
+ - 쿠폰은 `XXXX-YYYY-ZZZ` 형태로 생성됩니다.  
+   각 자리는 숫자로 구성되어 있으며 `CodeGenerator`에 의해 항상 난수 발생합니다.
+ - 쿠폰의 상태는 다음과 같이 구성되어 있습니다.
+   - `0: STANDBY ----- 생성되어 대기 중인 상태`
+   - `1: PUBLISHED --- 발행되어 사용가능한 상태`
+   - `2: USED -------- 사용된 상태 (사용취소될 경우 PUBLISHED 상태로 변경)`
+   - `3: EXPIRED ----- 만료시점이 지나 더 이상 사용할 수 없는 상태`
 
 ## REST API Requests
 
