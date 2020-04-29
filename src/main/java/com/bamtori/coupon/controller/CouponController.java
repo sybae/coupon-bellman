@@ -1,5 +1,7 @@
 package com.bamtori.coupon.controller;
 
+import com.bamtori.coupon.dto.CouponResponse;
+import com.bamtori.coupon.dto.PostedResponse;
 import com.bamtori.coupon.model.Coupon;
 import com.bamtori.coupon.service.CouponService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/coupon")
@@ -24,9 +27,9 @@ public class CouponController {
      * @return Code
      */
     @PostMapping()
-    public ResponseEntity<String> postNewCoupon() {
+    public ResponseEntity<CouponResponse> postNewCoupon() {
         return ResponseEntity.ok(Optional.of(couponService.postNewCoupon())
-                .map(coupon -> coupon.getCode())
+                .map(coupon -> CouponResponse.builder().code(coupon.getCode()).build())
                 .orElseThrow(NoSuchElementException::new));
     }
 
@@ -36,13 +39,13 @@ public class CouponController {
      * @return Count of posted coupons
      */
     @PostMapping("/{size}")
-    public ResponseEntity<Integer> postNewCouponWithSize(@PathVariable int size) {
+    public ResponseEntity<PostedResponse> postNewCouponWithSize(@PathVariable int size) {
         int posted = 0;
         while (posted < size) {
             couponService.postNewCoupon();
             posted++;
         }
-        return ResponseEntity.ok(posted);
+        return ResponseEntity.ok(PostedResponse.builder().posted(posted).build());
     }
 
     /**
@@ -50,10 +53,10 @@ public class CouponController {
      * @return Code
      */
     @PutMapping()
-    public ResponseEntity<String> publishCoupon() {
+    public ResponseEntity<CouponResponse> publishCoupon() {
         Coupon published = couponService.publishCoupon();
         return published != null
-                ? ResponseEntity.ok(published.getCode())
+                ? ResponseEntity.ok(CouponResponse.builder().code(published.getCode()).build())
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -62,8 +65,11 @@ public class CouponController {
      * @return Codes
      */
     @GetMapping("/published")
-    public ResponseEntity<List<String>> getPublishedCoupons() {
-        return ResponseEntity.ok(couponService.getPublishedCoupons());
+    public ResponseEntity<List<CouponResponse>> getPublishedCoupons() {
+        return ResponseEntity.ok(couponService.getPublishedCoupons().stream()
+                .map(code -> CouponResponse.builder().code(code).build())
+                .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -72,10 +78,10 @@ public class CouponController {
      * @return Used Code
      */
     @PutMapping("/{code}/use")
-    public ResponseEntity<String> useCoupon(@PathVariable String code) {
+    public ResponseEntity<CouponResponse> useCoupon(@PathVariable String code) {
         String usedCode = couponService.useCoupon(code);
         return !StringUtils.isEmpty(usedCode)
-                ? ResponseEntity.ok(usedCode)
+                ? ResponseEntity.ok(CouponResponse.builder().code(usedCode).build())
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -85,10 +91,10 @@ public class CouponController {
      * @return Canceled Code
      */
     @PutMapping("/{code}/cancel")
-    public ResponseEntity<String> cancelCoupon(@PathVariable String code) {
+    public ResponseEntity<CouponResponse> cancelCoupon(@PathVariable String code) {
         String canceledCode = couponService.cancelCoupon(code);
         return !StringUtils.isEmpty(canceledCode)
-                ? ResponseEntity.ok(canceledCode)
+                ? ResponseEntity.ok(CouponResponse.builder().code(canceledCode).build())
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -97,8 +103,11 @@ public class CouponController {
      * @return Codes
      */
     @GetMapping("/expired")
-    public ResponseEntity<List<String>> getTodayExpiredCoupons() {
-        return ResponseEntity.ok(couponService.getTodayExpiredCoupons());
+    public ResponseEntity<List<CouponResponse>> getTodayExpiredCoupons() {
+        return ResponseEntity.ok(couponService.getTodayExpiredCoupons().stream()
+                .map(code -> CouponResponse.builder().code(code).build())
+                .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -106,8 +115,7 @@ public class CouponController {
      * @return Message
      */
     @PostMapping("/expired/message")
-    public ResponseEntity<?> postMessagesForBeExpiredAfter3Days() {
-        couponService.postMessages();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<PostedResponse> postMessagesForBeExpiredAfter3Days() {
+        return ResponseEntity.ok(PostedResponse.builder().posted(couponService.postMessages()).build());
     }
 }

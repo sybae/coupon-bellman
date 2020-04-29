@@ -86,6 +86,6 @@ public class CouponServiceTest {
 
     @Test
     public void postMessagesTest() {
-        couponService.postMessages();
+        assertThat(couponService.postMessages()).isGreaterThan(-1);
     }
 }

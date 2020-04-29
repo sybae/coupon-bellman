@@ -74,10 +74,13 @@ public class CouponService {
                 .orElse(null);
     }
 
-    public void postMessages() {
+    public int postMessages() {
         LocalDate after3days = LocalDate.now().plusDays(3l);
-        couponRepository.findCouponsByExpiredDateBetween(getStartOfDay(after3days), getEndOfDay(after3days))
-                .ifPresent(coupons -> coupons.forEach(coupon -> printMessage(coupon)));
+        return couponRepository.findCouponsByExpiredDateBetween(getStartOfDay(after3days), getEndOfDay(after3days))
+                .map(coupons -> {
+                    coupons.forEach(coupon -> printMessage(coupon));
+                    return coupons.size();
+                }).orElse(0);
     }
 
     private void printMessage(Coupon coupon) {
