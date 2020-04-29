@@ -1,5 +1,5 @@
 # Coupon Bellman
-쿠폰을 발행하고 관리하는 서비스
+쿠폰을 발행하여 관리하는 벨맨 친구를 소개합니다.
 
 ## Environments
 ...
