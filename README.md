@@ -2,7 +2,10 @@
 쿠폰을 발행하여 관리하는 벨맨 친구를 소개합니다.
 
 ## Environments
-...
+Spring Boot, JPA, H2, Lombok, Batch, Java 8
+
+ - 서비스 구동시 Post Construct 통해서 임의의 쿠폰들을 생성/발행 합니다.
+ - 이후 제공되는 API 통해서 처리할 수 있습니다.
 
 ## REST API Requests
 
@@ -111,3 +114,4 @@
        "posted": 100
    }
    ```
+
